@@ -262,9 +262,9 @@ h2 {
 }
 
 .tile-card {
-  width: calc(33.33% - 8px);
-  max-width: 120px;
-  aspect-ratio: 0.65;
+  width: calc(50% - 6px);
+  max-width: 180px;
+  aspect-ratio: 765 / 235;
   border-radius: 10px;
   overflow: hidden;
   background: var(--dark-mid);
@@ -336,11 +336,11 @@ h2 {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  min-width: 64px;
+  min-width: 80px;
 }
 .resident-img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 49px;
   border-radius: 10px;
   background: var(--dark);
   border: 1px solid var(--dark-light);
@@ -367,14 +367,13 @@ h2 {
   font-weight: 600;
   color: var(--warm-gray);
   text-align: center;
-  max-width: 70px;
+  max-width: 84px;
   line-height: 1.2;
 }
 
 .attr-slot {
   flex: 1;
-  aspect-ratio: 1.5;
-  max-height: 80px;
+  aspect-ratio: 765 / 235;
   border-radius: 10px;
   background: var(--dark);
   border: 1px solid var(--dark-light);
@@ -566,7 +565,7 @@ h2 {
 <script>
 // ── Data ──
 const ATTRIBUTES = [
-  'The Art Connoisseur','The Virtuoso','The Klutz','Tres Chic',
+  'The Art Connoisseur','The Virtuoso','The Klutz','Très Chic',
   'The Drunk','The Athlete','The Writer','The Photographer',
   'The Animal Lover','The Gourmand','The Globetrotter','The Gardener',
   'The Heartbroken','The Thief'
