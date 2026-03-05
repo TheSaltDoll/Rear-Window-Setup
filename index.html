@@ -428,7 +428,7 @@ h2 {
 
 /* Hide stepper sections */
 .purple-exact, .purple-range { display: none; }
-.purple-exact.visible, .purple-range.visible { display: flex; }
+.purple-exact.visible, .purple-range.visible { display: flex; flex-direction: column; }
 </style>
 </head>
 <body>
@@ -461,7 +461,8 @@ h2 {
             <div class="stepper-val" id="purpleMin-val">0</div>
             <button class="stepper-btn" onclick="adjustVal('purpleMin', 1)">+</button>
           </div>
-          <div style="width:16px"></div>
+        </div>
+        <div class="range-row" style="margin-top:10px;">
           <div class="range-label">Max</div>
           <div class="stepper">
             <button class="stepper-btn" onclick="adjustVal('purpleMax', -1)">−</button>
