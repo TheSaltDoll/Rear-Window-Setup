@@ -9,6 +9,7 @@
 <title>Rear Window Setup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<audio id="bg-music" src="scoretheme.mp3" loop preload="auto"></audio>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -251,6 +252,38 @@ h2 {
   transition: transform 0.2s;
 }
 .toggle.on .toggle-knob { transform: translateX(22px); }
+
+/* ── Music Toggle ── */
+.music-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.music-toggle:active { opacity: 1; }
+.music-toggle-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gold-dim);
+  background: var(--dark-mid);
+  color: var(--gold);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s;
+}
+.music-toggle-btn:active { background: var(--dark-light); transform: scale(0.92); }
+.music-toggle-label {
+  font-size: 12px;
+  color: var(--warm-gray);
+}
 
 /* ── Tile Display ── */
 .tile-grid {
@@ -531,6 +564,10 @@ h2 {
     <button class="btn btn-danger" onclick="showDirectorRecallReady()">Director: View Secret Setup</button>
     <div style="height:8px"></div>
     <button class="btn btn-primary" onclick="restartApp()">New Game</button>
+  </div>
+  <div class="music-toggle" id="music-toggle">
+    <button class="music-toggle-btn" onclick="toggleMusic()" id="music-btn">♫</button>
+    <span class="music-toggle-label" id="music-label">Music: On</span>
   </div>
 </div>
 
@@ -818,6 +855,57 @@ function showDirectorRecall() {
 }
 
 function restartApp() { goTo('options-screen'); }
+
+// ── Music ──
+const bgMusic = document.getElementById('bg-music');
+let musicPlaying = false;
+
+function startMusic() {
+  bgMusic.play().then(() => {
+    musicPlaying = true;
+    updateMusicUI();
+  }).catch(() => {
+    // Autoplay blocked — will retry on first user interaction
+  });
+}
+
+function toggleMusic() {
+  if (musicPlaying) {
+    bgMusic.pause();
+    musicPlaying = false;
+  } else {
+    bgMusic.play();
+    musicPlaying = true;
+  }
+  updateMusicUI();
+}
+
+function updateMusicUI() {
+  const btn = document.getElementById('music-btn');
+  const label = document.getElementById('music-label');
+  if (musicPlaying) {
+    btn.textContent = '♫';
+    label.textContent = 'Music: On';
+  } else {
+    btn.textContent = '♫';
+    label.textContent = 'Music: Off';
+  }
+  btn.style.opacity = musicPlaying ? '1' : '0.4';
+}
+
+// Try autoplay on load
+startMusic();
+
+// If autoplay was blocked, start on first user tap
+document.addEventListener('click', function initMusic() {
+  if (!musicPlaying) {
+    bgMusic.play().then(() => {
+      musicPlaying = true;
+      updateMusicUI();
+    }).catch(() => {});
+  }
+  document.removeEventListener('click', initMusic);
+}, { once: true });
 </script>
 </body>
 </html>
