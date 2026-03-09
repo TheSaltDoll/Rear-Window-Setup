@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Rear Window">
 <title>Rear Window Setup</title>
-<link rel="apple-touch-icon" href="rear-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <audio id="bg-music" src="scoretheme.mp3" loop preload="auto"></audio>
@@ -50,6 +49,8 @@ body {
 .screen {
   display: none;
   min-height: 100dvh;
+  max-width: 500px;
+  margin: 0 auto;
   padding: 24px 20px calc(24px + var(--safe-bottom));
   animation: fadeUp 0.45s ease-out;
 }
