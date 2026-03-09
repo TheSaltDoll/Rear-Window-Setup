@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Rear Window Setup">
+<meta name="apple-mobile-web-app-title" content="Rear Window">
 <title>Rear Window Setup</title>
-<link rel="apple-touch-icon" href="rear-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <audio id="bg-music" src="scoretheme.mp3" loop preload="auto"></audio>
@@ -791,22 +790,21 @@ function renderDirectorWindows(containerId) {
     const attrSlot = document.createElement('div');
     attrSlot.className = 'attr-slot' + (isPurple(w.attribute) ? ' purple' : '') + (isMurder(w.attribute) ? ' murder' : '');
     const attrImg = document.createElement('img');
-    attrImg.src = toFilename(w.attribute);
-    attrImg.alt = w.attribute;
+    // Purple tiles use combined filename: e.g. "arguing-with-police-officer.png"
+    const attrFilename = (isPurple(w.attribute) && w.extraResident)
+      ? toFilename(w.attribute.replace(/ $/, '') + ' ' + w.extraResident)
+      : toFilename(w.attribute);
+    attrImg.src = attrFilename;
+    attrImg.alt = w.attribute + (w.extraResident ? ' ' + w.extraResident : '');
     attrImg.onerror = function() {
       this.style.display = 'none';
       const p = document.createElement('div');
       p.className = 'placeholder';
-      p.textContent = w.attribute;
+      p.textContent = w.attribute + (w.extraResident ? ' ' + w.extraResident : '');
       attrSlot.appendChild(p);
     };
     attrSlot.appendChild(attrImg);
     content.appendChild(attrSlot);
-
-    // Extra resident for purple
-    if (w.extraResident) {
-      content.appendChild(makeResidentSlot(w.extraResident));
-    }
 
     row.appendChild(content);
     c.appendChild(row);
@@ -831,11 +829,6 @@ function makeResidentSlot(name) {
   };
   imgWrap.appendChild(img);
   slot.appendChild(imgWrap);
-
-  const nameEl = document.createElement('div');
-  nameEl.className = 'resident-name';
-  nameEl.textContent = name;
-  slot.appendChild(nameEl);
 
   return slot;
 }
