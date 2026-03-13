@@ -565,7 +565,8 @@ h2 {
     <button class="btn btn-secondary" onclick="showWatcherRecall()">Watchers: View Tiles in Play</button>
     <button class="btn btn-danger" onclick="showDirectorRecallReady()">Director: View Secret Setup</button>
     <div style="height:8px"></div>
-    <button class="btn btn-primary" onclick="restartApp()">New Game</button>
+    <button class="btn btn-secondary" onclick="newDirectorSetup()">New Director Setup (Same Tiles)</button>
+    <button class="btn btn-primary" onclick="restartApp()">New Game (Full Reset)</button>
   </div>
   <div class="music-toggle" id="music-toggle">
     <button class="music-toggle-btn" onclick="toggleMusic()" id="music-btn">♫</button>
@@ -851,6 +852,11 @@ function showDirectorRecall() {
 }
 
 function restartApp() { goTo('options-screen'); }
+
+function newDirectorSetup() {
+  // Skip straight to director ready screen using the same selectedTiles
+  goTo('director-ready-screen');
+}
 
 // ── Music ──
 const bgMusic = document.getElementById('bg-music');
